@@ -23,6 +23,7 @@ function pwdMatch($pwd, $pwdRepeat)
     return false;
 }
 
+
 function createProduct($conn, $name, $quantity, $costperitem, $sellingprice, $userid)
 {
 
@@ -44,6 +45,7 @@ function createProduct($conn, $name, $quantity, $costperitem, $sellingprice, $us
         header("location: ./homepage.php");
     }
 }
+
 
 function createCustomer($conn, $name, $surname, $email, $number, $address, $userid)
 {
@@ -123,15 +125,15 @@ function uidExists($conn, $username)
     mysqli_stmt_close($stmt);
 }
 
-function pidExists($conn, $productName)
+function pidExists($conn, $p_id,$u_id)
 {
-    $sql = "SELECT * FROM inventory WHERE P_name = ? ;";
+    $sql = "SELECT * FROM inventory WHERE P_id = ? and U_id=?;";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         header("location: ./index.php?error=stmtfailed");
         exit();
     }
-    mysqli_stmt_bind_param($stmt, "s", $productName);
+    mysqli_stmt_bind_param($stmt, "ss", $p_id,$u_id);
     mysqli_stmt_execute($stmt);
 
     $resultData = mysqli_stmt_get_result($stmt);
@@ -181,7 +183,6 @@ function createUser($conn, $name, $surname, $number, $address, $email, $username
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         header("location: ../index.php?error=stmtfailed2");
-
         exit();
     }
     print_r($stmt);
@@ -279,10 +280,35 @@ function loginUsr($conn, $username, $pass)
         exit();
     }
 }
-
-function showhistory()
+function updateProduct($conn, $p_id,$u_id, $name, $quantity, $costperitem ,$sellingprice)
 {
+    $row=pidExists($conn, $p_id,$u_id);
+    if(empty($name)){
 
+        $name=$row['P_name'];
 
-    echo "<div class='pdf'> <a  href=`C:\Users\User\Desktop\cov.pdf`> Vaccine Certificate  </a></div>";
+    }
+
+    if(empty($quantity)){
+        $quantity=$row['p_quantity'];
+    }
+    if(empty($costperitem)){
+        $costperitem=$row["p_costperitem"];
+    }
+    if(empty($sellingprice)){
+        $sellingprice=$row["p_sellingprice"];  
+    }
+    $sql="UPDATE inventory SET P_name=? , p_quantity=?, p_costperitem=?, p_sellingprice=? where U_id=? and P_id=?";
+    $stmt=mysqli_stmt_init($conn);
+    if(!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ./homepage.php?error=smtngfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, 'ssiiii', $name, $quantity,$costperitem,$sellingprice,$u_id,$p_id );
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    header("location: ./homepage.php?error=none");
+    exit();
+
 }

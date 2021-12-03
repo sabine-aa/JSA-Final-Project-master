@@ -45,7 +45,7 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
                             <div class='edit-im'>
     
                             <a></a>
-                                <img src='./resources/images/edit.png' onclick='document.getElementById('edit-product').style.display='block'' alt=''>
+                                <img src='./resources/images/edit.png' onclick='displayUpdateForm()' alt=''>
                             </div>
                             <div class='edit-delete'>
                                 <img src='./resources/images/delete.png' alt='' onclick='showDeleteForm()'>
@@ -53,8 +53,6 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
                      </div>
                                 <div class='product-desc'  >
                                 <input type='text' name='P_id' id='username1' class='username' value=' {$row['P_id']}'>
-                            
-
                                 <h1 class='p-name' > {$row['P_name']}  </h1>
                                 <h3 class='desc'>Quantity: {$row['p_quantity']}</h3>
                                 <h3 class='desc'>Price:{$row['p_sellingprice']}</h3>
@@ -122,10 +120,7 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
     <h1>Are You Sure You Want To Delete?</h1>
     <input type="text" class="username" name="P_id"  id="uid" value="">
     <script>
-
         document.getElementById('uid').value = document.getElementById('username1').value;
-
-
     </script>
     <button name="yes">
         Yes
@@ -134,6 +129,21 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
         no
     </button>
 
+</form>
+
+<form action="update.php" id="update-container" method="post">
+    <h1>Update Product</h1>
+    <h3>leave fields empty if you dont want to change</h3>
+    <input type="text" class="username" name="P_id"  id="uid1" value="">
+    <script>
+        document.getElementById('uid1').value = document.getElementById('username1').value;
+        </script>
+    <input type="text" name="name" placeholder="Enter new name">
+    <input type="text" name="cost" placeholder="Enter new cost">
+    <input type="text" name="price" placeholder="Enter new price">
+    <input type="text" name="quantity" placeholder="Enter new quantity">
+
+    <button type="submit" name="submit">Update</button>
 </form>
 <script>
     $(function() {
@@ -151,6 +161,10 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
 
     function showDeleteForm() {
         document.getElementById('delete-container').style.display = "block";
+    }
+
+    function displayUpdateForm(){
+        document.getElementById('update-container').style.display="block"
     }
 </script>
 
