@@ -1,0 +1,25 @@
+<?php
+
+if(isset($_POST["submit"])){
+    
+    $name = $_POST["name"];
+    $quantity = $_POST["surname"];
+    $email= $_post["email"];
+    $costperitem = $_POST["number"];
+    $sellingprice = $_POST["address"];
+
+    
+session_start();
+$username = $_SESSION['username'];
+echo("<script>console.log('PHP: " . $username . "');</script>");
+
+    require_once 'db.php';
+    require_once 'api.php';
+    
+        createCustomer($conn, $name, $surname, $email,$number,$address,$username);
+}else
+{
+    header("location: index.php");
+    exit(); 
+}
+?>
