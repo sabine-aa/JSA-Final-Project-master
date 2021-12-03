@@ -7,6 +7,10 @@ if(isset($_POST["submit"])){
     $costperitem = $_POST["costperitem"];
     $sellingprice = $_POST["sellingprice"];
 
+    $filename = $_FILES["uploadfile"]["name"];
+    $tempname = $_FILES["uploadfile"]["tmp_name"]; 
+
+    $folder = "resources/images/".$filename;
     
 session_start();
 $U_id = $_SESSION['U_id'];
@@ -15,7 +19,13 @@ $U_id = $_SESSION['U_id'];
     require_once 'db.php';
     require_once 'api.php';
     
-        createProduct($conn, $name, $quantity, $costperitem,$sellingprice,$U_id );
+        createProduct($conn, $name, $quantity, $costperitem,$sellingprice,$filename,$U_id);
+        
+        if (move_uploaded_file($tempname, $folder))  {
+            $msg = "Image uploaded successfully";
+        }else{
+            $msg = "Failed to upload image";
+      }
 
     
     

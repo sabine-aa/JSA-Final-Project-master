@@ -22,7 +22,7 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
     require_once 'db.php';
     echo ("<script>console.log('PHP: " . $username . "');</script>");
 
-    $sql = "SELECT  `P_id`,`P_name`, `p_quantity`, `p_sellingprice` FROM `inventory` where U_id= ?";
+    $sql = "SELECT  `P_id`,`P_name`, `p_quantity`, `p_sellingprice`, `P_filename` FROM `inventory` where U_id= ?";
 
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -40,7 +40,7 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
             echo "
         <div class='product-item'> 
             <div class='image-box'>  
-                <img src='./resources/images/product.jpg' alt='' class='product-image'>
+                <img src='./resources/images/{$row['P_filename']}' alt='' class='product-image'>
                      <div class='edit'>
                             <div class='edit-im'>
     
@@ -56,6 +56,8 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
                                 <h1 class='p-name' > {$row['P_name']}  </h1>
                                 <h3 class='desc'>Quantity: {$row['p_quantity']}</h3>
                                 <h3 class='desc'>Price:{$row['p_sellingprice']}</h3>
+
+
                             </div>
                      </div>            
              </div> ";
@@ -92,7 +94,7 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
                 </h4>
             </div>
             <div class="modal-body">
-                <form action="./add.php" method="post">
+                <form action="./add.php" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <input type="text" class="form-control" name="name" style="width:100%" placeholder="Enter product name!" required>
                     </div>
@@ -106,8 +108,13 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
                         <input type="text" class="form-control" name="sellingprice" style="width:100%" placeholder="Enter selling price!" required>
                     </div>
                     <div class="form-group">
+                        <input type="file" name="uploadfile" value="" />
+                    </div>
+                    <div class="form-group">
                         <button type="submit" name="submit" class="btn btn-default">Add</button>
                     </div>
+
+
                 </form>
             </div>
         </div>
@@ -118,7 +125,7 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
 <form action="delete.php" id="delete-container" method="post">
 
     <h1>Are You Sure You Want To Delete?</h1>
-    <input type="text" class="username" name="P_id"  id="uid" value="">
+    <input type="text" class="username" name="P_id" id="uid" value="">
     <script>
         document.getElementById('uid').value = document.getElementById('username1').value;
     </script>
@@ -134,14 +141,16 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
 <form action="update.php" id="update-container" method="post">
     <h1>Update Product</h1>
     <h3>leave fields empty if you dont want to change</h3>
-    <input type="text" class="username" name="P_id"  id="uid1" value="">
+    <input type="text" class="username" name="P_id" id="uid1" value="">
     <script>
         document.getElementById('uid1').value = document.getElementById('username1').value;
-        </script>
+    </script>
     <input type="text" name="name" placeholder="Enter new name">
     <input type="text" name="cost" placeholder="Enter new cost">
     <input type="text" name="price" placeholder="Enter new price">
     <input type="text" name="quantity" placeholder="Enter new quantity">
+    <input type="file" name="uploadfile" value="" />
+                    
 
     <button type="submit" name="submit">Update</button>
 </form>
@@ -155,7 +164,7 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
 <script>
     function showId() {
         console.log(document.getElementById('username').value);
-        
+
 
     }
 
@@ -163,8 +172,8 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
         document.getElementById('delete-container').style.display = "block";
     }
 
-    function displayUpdateForm(){
-        document.getElementById('update-container').style.display="block"
+    function displayUpdateForm() {
+        document.getElementById('update-container').style.display = "block"
     }
 </script>
 

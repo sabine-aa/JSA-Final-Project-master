@@ -24,10 +24,10 @@ function pwdMatch($pwd, $pwdRepeat)
 }
 
 
-function createProduct($conn, $name, $quantity, $costperitem, $sellingprice, $userid)
+function createProduct($conn, $name, $quantity, $costperitem, $sellingprice, $filename,$userid)
 {
 
-    $sql = "INSERT INTO inventory(P_name, P_quantity, P_costperitem, P_sellingprice,U_id) VALUES (?, ?, ?, ?, ?);";
+    $sql = "INSERT INTO inventory(P_name, P_quantity, P_costperitem, P_sellingprice,P_filename,U_id) VALUES (?, ?, ?, ?, ?,?);";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         header("location: ../index.php?error=stmtfailed2");
@@ -36,7 +36,7 @@ function createProduct($conn, $name, $quantity, $costperitem, $sellingprice, $us
     }
     print_r($stmt);
 
-    mysqli_stmt_bind_param($stmt, "sssss", $name, $quantity, $costperitem, $sellingprice, $userid);
+    mysqli_stmt_bind_param($stmt, "ssssss", $name, $quantity, $costperitem, $sellingprice, $filename,$userid);
     if (!mysqli_stmt_execute($stmt)) {
         print_r(mysqli_stmt_error($stmt));
     } else {
@@ -280,7 +280,7 @@ function loginUsr($conn, $username, $pass)
         exit();
     }
 }
-function updateProduct($conn, $p_id,$u_id, $name, $quantity, $costperitem ,$sellingprice)
+function updateProduct($conn, $p_id,$u_id, $name, $quantity, $costperitem ,$sellingprice,$filename)
 {
     $row=pidExists($conn, $p_id,$u_id);
     if(empty($name)){
@@ -298,14 +298,18 @@ function updateProduct($conn, $p_id,$u_id, $name, $quantity, $costperitem ,$sell
     if(empty($sellingprice)){
         $sellingprice=$row["p_sellingprice"];  
     }
-    $sql="UPDATE inventory SET P_name=? , p_quantity=?, p_costperitem=?, p_sellingprice=? where U_id=? and P_id=?";
+
+    if(empty($filename)){
+        $filename=$row["P_filename"];  
+    }
+    $sql="UPDATE inventory SET P_name=? , p_quantity=?, p_costperitem=?, p_sellingprice=?, P_filename=? where U_id=? and P_id=?";
     $stmt=mysqli_stmt_init($conn);
     if(!mysqli_stmt_prepare($stmt,$sql))
     {
         header("location: ./homepage.php?error=smtngfailed");
         exit();
     }
-    mysqli_stmt_bind_param($stmt, 'ssiiii', $name, $quantity,$costperitem,$sellingprice,$u_id,$p_id );
+    mysqli_stmt_bind_param($stmt, 'ssiisii', $name, $quantity,$costperitem,$sellingprice,$filename,$u_id,$p_id);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
     header("location: ./homepage.php?error=none");
