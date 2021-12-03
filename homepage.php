@@ -48,11 +48,11 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
                                 <img src='./resources/images/edit.png' onclick='document.getElementById('edit-product').style.display='block'' alt=''>
                             </div>
                             <div class='edit-delete'>
-                                <img src='./resources/images/delete.png' alt='' onclick='showDeleteForms()'>
+                                <img src='./resources/images/delete.png' alt='' onclick='showDeleteForm()'>
                             </div>        
                      </div>
                                 <div class='product-desc'  >
-                                <input type='text' name='P_id' id='username'value=' {$row['P_id']}'>
+                                <input type='text' name='P_id' id='username1' class='username' value=' {$row['P_id']}'>
                             
 
                                 <h1 class='p-name' > {$row['P_name']}  </h1>
@@ -117,13 +117,20 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
 </div>
 
 
-<form action="" id="delete-container">
+<form action="delete.php" id="delete-container" method="post">
 
     <h1>Are You Sure You Want To Delete?</h1>
-    <button>
+    <input type="text" class="username" name="P_id"  id="uid" value="">
+    <script>
+
+        document.getElementById('uid').value = document.getElementById('username1').value;
+
+
+    </script>
+    <button name="yes">
         Yes
     </button>
-    <button>
+    <button name="no">
         no
     </button>
 
@@ -138,6 +145,7 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
 <script>
     function showId() {
         console.log(document.getElementById('username').value);
+        
 
     }
 

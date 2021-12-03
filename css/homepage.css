@@ -56,10 +56,11 @@
     padding-top: 60px;
 }
 
-#username {
+.username {
     display: none;
     position: absolute;
 }
+
 .edit-im {
     position: absolute;
     bottom: 4%;
