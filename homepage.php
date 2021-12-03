@@ -1,5 +1,3 @@
-
-    
 <?php
 include_once 'header.php';
 session_start();
@@ -7,26 +5,27 @@ session_start();
 
 $username = $_SESSION['username'];
 $U_id = $_SESSION['U_id'];
-echo("<script>console.log('PHP: " . $username . "');</script>");
+echo ("<script>console.log('PHP: " . $username . "');</script>");
 
 
 ?>
-  
+
 <link rel="stylesheet" href="./css/homepage.css">
-    <!--CSS-->
+<!--CSS-->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
- 
- <!--JS--><main class='main-container'>
- <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <?php 
+
+<!--JS-->
+<main class='main-container'>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <?php
     require_once 'db.php';
-    echo("<script>console.log('PHP: " . $username . "');</script>");
+    echo ("<script>console.log('PHP: " . $username . "');</script>");
 
     $sql = "SELECT  `P_id`,`P_name`, `p_quantity`, `p_sellingprice` FROM `inventory` where U_id= ?";
 
     $stmt = mysqli_stmt_init($conn);
-    if(!mysqli_stmt_prepare($stmt, $sql)){
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
         echo "<script>console.log('error bro')</script>";
     }
 
@@ -35,10 +34,10 @@ echo("<script>console.log('PHP: " . $username . "');</script>");
 
     $resultData = mysqli_stmt_get_result($stmt);
 
-   // if($row = mysqli_fetch_assoc($resultData)){
-       if(mysqli_num_rows($resultData)>0){
-        while($row = $resultData->fetch_assoc()) {
-        echo"
+    // if($row = mysqli_fetch_assoc($resultData)){
+    if (mysqli_num_rows($resultData) > 0) {
+        while ($row = $resultData->fetch_assoc()) {
+            echo "
         <div class='product-item'> 
             <div class='image-box'>  
                 <img src='./resources/images/product.jpg' alt='' class='product-image'>
@@ -49,64 +48,28 @@ echo("<script>console.log('PHP: " . $username . "');</script>");
                                 <img src='./resources/images/edit.png' onclick='document.getElementById('edit-product').style.display='block'' alt=''>
                             </div>
                             <div class='edit-delete'>
-                                <img src='./resources/images/delete.png' alt=''>
-                                <script>console.log('PHP: " . $row['P_id'] . "');</script>
+                                <img src='./resources/images/delete.png' alt='' onclick='showDeleteForms()'>
                             </div>        
                      </div>
-                                <div class='product-desc'>
+                                <div class='product-desc'  >
+                                <input type='text' name='P_id' id='username'value=' {$row['P_id']}'>
+                            
+
                                 <h1 class='p-name' > {$row['P_name']}  </h1>
                                 <h3 class='desc'>Quantity: {$row['p_quantity']}</h3>
                                 <h3 class='desc'>Price:{$row['p_sellingprice']}</h3>
                             </div>
                      </div>            
-             </div> ";   
-        } 
+             </div> ";
+        }
     } else {
         $result = 0;
-        echo "0 results"; 
+        echo "0 results";
     }
-    $data[]="";
-    $result = mysqli_query( $conn, $sql);
-    
+    $data[] = "";
+    ?>
 
-   //echo("<script>console.log('PHP: " . $result . "');</script>");
-
-    // if (mysqli_num_rows($result) > 0) {
-    //     while($row = $result->fetch_assoc()) {
-          
-    //         echo" 
-
-    // <div class='product-item'> 
-    //     <div class='image-box'>  
-    //         <img src='./resources/images/product.jpg' alt='' class='product-image'>
-    //              <div class='edit'>
-    //                     <div class='edit-im'>
-
-    //                     <a></a>
-    //                         <img src='./resources/images/edit.png' onclick='document.getElementById('edit-product').style.display='block'' alt=''>
-    //                     </div>
-    //                     <div class='edit-delete'>
-    //                         <img src='./resources/images/delete.png' alt=''>
-    //                         <script>console.log('PHP: " . $row['P_id'] . "');</script>
-    //                     </div>        
-    //              </div>
-    //                         <div class='product-desc'>
-    //                         <h1 class='p-name'> {$row['P_name']}  </h1>
-    //                         <h3 class='desc'>Quantity: {$row['P_quantity']}</h3>
-    //                         <h3 class='desc'>Price:{$row['P_sellingprice']}</h3>
-    //                     </div>
-    //              </div>            
-    //      </div> ";    
-    //     }
-    //   }  
-      
-    //   else {
-    // echo "0 results";
-    // }
-    
-?>    
-  
-</div>
+    </div>
 </main>
 
 
@@ -117,50 +80,71 @@ echo("<script>console.log('PHP: " . $username . "');</script>");
 </form>
 
 <a href="#" class="float">
-<span class="glyphicon glyphicon-plus my-float"></span>
+    <span class="glyphicon glyphicon-plus my-float"></span>
 </a>
 
-<div style="position:fixed; top:50%; left:50%; transform: translate(-50%, -50%);   width: 50%;" id="newmodal" class="modal fade" role="dialog" >
-<div class="modal-dialog modal-md">
- 
-<div class="modal-content">
-<div class="modal-header">
- 
-<h4 class="modal-title" style="color:#000000">
-Add New Product
-</h4>
+<div style="position:fixed; top:50%; left:50%; transform: translate(-50%, -50%);   width: 50%;" id="newmodal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-md">
+
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title" style="color:#000000">
+                    Add New Product
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form action="./add.php" method="post">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="name" style="width:100%" placeholder="Enter product name!" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="quantity" style="width:100%" placeholder="Enter product Quantity!" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="costperitem" style="width:100%" placeholder="Enter cost per item!" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="sellingprice" style="width:100%" placeholder="Enter selling price!" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" name="submit" class="btn btn-default">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="modal-body">
-<form action="./add.php" method="post">
-<div class="form-group">
-<input type="text" class="form-control" name="name" style="width:100%" placeholder="Enter product name!"  required>
-</div>
-<div class="form-group">
-<input type="text" class="form-control" name="quantity" style="width:100%" placeholder="Enter product Quantity!"  required>
-</div>
-<div class="form-group">
-<input type="text" class="form-control" name="costperitem" style="width:100%" placeholder="Enter cost per item!"  required>
-</div>
-<div class="form-group">
-<input type="text" class="form-control" name="sellingprice" style="width:100%" placeholder="Enter selling price!"  required>
-</div>
-<div class="form-group">
-<button type="submit" name="submit" class="btn btn-default">Add</button>
-</div>
+
+
+<form action="" id="delete-container">
+
+    <h1>Are You Sure You Want To Delete?</h1>
+    <button>
+        Yes
+    </button>
+    <button>
+        no
+    </button>
+
 </form>
-</div>
-</div>
-</div>
-</div>
-
 <script>
-$(function() { 
-  $(".float").click(function() {  
-   $("#newmodal").modal('show');
-  });
-});
+    $(function() {
+        $(".float").click(function() {
+            $("#newmodal").modal('show');
+        });
+    });
 </script>
+<script>
+    function showId() {
+        console.log(document.getElementById('username').value);
 
+    }
+
+    function showDeleteForm() {
+        document.getElementById('delete-container').style.display = "block";
+    }
+</script>
 
 </body>
 
