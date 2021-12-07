@@ -34,9 +34,9 @@ function createProduct($conn, $name, $quantity, $costperitem, $sellingprice, $fi
 
         exit();
     }
-    print_r($stmt);
+    
 
-    mysqli_stmt_bind_param($stmt, "ssssss", $name, $quantity, $costperitem, $sellingprice, $filename,$userid);
+    mysqli_stmt_bind_param($stmt, "sssssi", $name, $quantity, $costperitem, $sellingprice, $filename,$userid);
     if (!mysqli_stmt_execute($stmt)) {
         print_r(mysqli_stmt_error($stmt));
     } else {
@@ -57,7 +57,7 @@ function createCustomer($conn, $name, $surname, $email, $number, $address, $user
 
         exit();
     }
-    print_r($stmt);
+
 
     mysqli_stmt_bind_param($stmt, "ssssss", $name, $surname, $email, $number, $address, $userid);
     if (!mysqli_stmt_execute($stmt)) {
@@ -284,9 +284,7 @@ function updateProduct($conn, $p_id,$u_id, $name, $quantity, $costperitem ,$sell
 {
     $row=pidExists($conn, $p_id,$u_id);
     if(empty($name)){
-
         $name=$row['P_name'];
-
     }
 
     if(empty($quantity)){
@@ -302,6 +300,9 @@ function updateProduct($conn, $p_id,$u_id, $name, $quantity, $costperitem ,$sell
     if(empty($filename)){
         $filename=$row["P_filename"];  
     }
+    debug_to_console($filename);
+    exit();
+
     $sql="UPDATE inventory SET P_name=? , p_quantity=?, p_costperitem=?, p_sellingprice=?, P_filename=? where U_id=? and P_id=?";
     $stmt=mysqli_stmt_init($conn);
     if(!mysqli_stmt_prepare($stmt,$sql))

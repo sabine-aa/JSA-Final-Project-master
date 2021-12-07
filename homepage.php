@@ -12,7 +12,7 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
 
 <link rel="stylesheet" href="./css/homepage.css">
 <!--CSS-->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="./css/bootstrap.css">
 
 <!--JS-->
 <main class='main-container'>
@@ -45,10 +45,10 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
                             <div class='edit-im'>
     
                             <a></a>
-                                <img src='./resources/images/edit.png' onclick='displayUpdateForm()' alt=''>
+                                <img src='./resources/images/edit.png' class='edit-button' onclick='displayUpdateForm({$row['P_id']})' alt=''>
                             </div>
                             <div class='edit-delete'>
-                                <img src='./resources/images/delete.png' alt='' onclick='showDeleteForm({$row['P_id']})'>
+                                <img src='./resources/images/delete.png' class='delete-button' alt='' onclick='showDeleteForm({$row['P_id']})'>
                             </div>        
                      </div>
                                 <div class='product-desc'  >
@@ -122,6 +122,73 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
 </div>
 
 
+
+<div style="position:fixed; top:50%; left:50%; transform: translate(-50%, -50%);   width: 50%;" id="update-container" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-md">
+
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title" style="color:#000000">
+                    Update Product
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form action="./update.php" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="name" style="width:100%" placeholder="Enter new product name!" >
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="quantity" style="width:100%" placeholder="Enter new product Quantity!" >
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="costperitem" style="width:100%" placeholder="Enter new cost per item!" >
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="sellingprice" style="width:100%" placeholder="Enter new selling price!">
+                    </div>
+                    <div class="form-group">
+                        <input type="file" name="uploadfile" value="" />
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" name="submit" class="btn btn-default">Update</button>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function() {
+        $(".edit-button").click(function() {
+            $("#update-container").modal('show');
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <form action="delete.php" id="delete-container" method="post">
 
     <h1>Are You Sure You Want To Delete?</h1>
@@ -139,22 +206,7 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
 
 </form>
 
-<form action="update.php" id="update-container" method="post">
-    <h1>Update Product</h1>
-    <h3>leave fields empty if you dont want to change</h3>
-    <input type="text" class="username" name="P_id" id="uid1" value="">
-    <script>
-        document.getElementById('uid1').value = document.getElementById('username1').value;
-    </script>
-    <input type="text" name="name" placeholder="Enter new name">
-    <input type="text" name="cost" placeholder="Enter new cost">
-    <input type="text" name="price" placeholder="Enter new price">
-    <input type="text" name="quantity" placeholder="Enter new quantity">
-    <input type="file" name="uploadfile" value="" />
-                    
 
-    <button type="submit" name="submit">Update</button>
-</form>
 <script>
     $(function() {
         $(".float").click(function() {
@@ -173,8 +225,9 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
         document.getElementById('pid').value = pid;
     }
 
-    function displayUpdateForm() {
+    function displayUpdateForm(pid) {
         document.getElementById('update-container').style.display = "block"
+        document.getElementById('uid1').value = pid
     }
 </script>
 
