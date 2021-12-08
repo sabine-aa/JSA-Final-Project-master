@@ -1,13 +1,10 @@
 <?php
 include_once 'header.php';
 session_start();
-//$_SESSION["userid"] = $uidExists["U_id"];
 
 $username = $_SESSION['username'];
 $U_id = $_SESSION['U_id'];
 echo ("<script>console.log('PHP: " . $username . "');</script>");
-
-
 ?>
 
 <link rel="stylesheet" href="./css/homepage.css">
@@ -19,6 +16,7 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <?php
+
     require_once 'db.php';
     echo ("<script>console.log('PHP: " . $username . "');</script>");
 
@@ -34,7 +32,7 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
 
     $resultData = mysqli_stmt_get_result($stmt);
 
-    // if($row = mysqli_fetch_assoc($resultData)){
+
     if (mysqli_num_rows($resultData) > 0) {
         while ($row = $resultData->fetch_assoc()) {
             echo "
@@ -71,17 +69,15 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
 
     </div>
 </main>
-<!-- <input type='text' name='P_id' id='username1' class='username' value=' {$row['P_id']}'> -->
 
-<form action="" id="edit-product">
-    <input type="text" name="quantity" placeholder="Quantity" class="edit-input">
-    <input type="text" name="price" placeholder="price" class="edit-input">
-    <button name="submit" value="Submit">Submit</button>
-</form>
+
+<!-- Add button DOM element-->
 
 <a href="#" class="float">
     <span class="glyphicon glyphicon-plus my-float"></span>
 </a>
+
+<!-- Adding Form -->
 
 <div style="position:fixed; top:50%; left:50%; transform: translate(-50%, -50%);   width: 50%;" id="newmodal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-md">
@@ -120,8 +116,17 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
         </div>
     </div>
 </div>
+<!-- Add Button Function, to show the add product form -->
 
+<script>
+    $(function() {
+        $(".float").click(function() {
+            $("#newmodal").modal('show');
+        });
+    });
+</script>
 
+<!-- Updating product form -->
 
 <div style="position:fixed; top:50%; left:50%; transform: translate(-50%, -50%);   width: 50%;" id="update-container" class="modal fade" role="dialog">
     <div class="modal-dialog modal-md">
@@ -162,6 +167,7 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
     </div>
 </div>
 
+<!-- Edit button function, to show the update form -->
 <script>
     $(function() {
         $(".edit-button").click(function() {
@@ -170,34 +176,11 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
     });
 </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <form action="delete.php" id="delete-container" method="post">
 
     <h1>Are You Sure You Want To Delete?</h1>
     
     <input type='text' name='P_id' id='pid' class='username' value="">
-    <!-- <script>
-        document.getElementById('uid').value = document.getElementById('username1').value;
-    </script> -->
     <button name="yes">
         Yes
     </button>
@@ -208,24 +191,18 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
 </form>
 
 
-<script>
-    $(function() {
-        $(".float").click(function() {
-            $("#newmodal").modal('show');
-        });
-    });
-</script>
+
+<!-- Update and Delete Form Showing functions -->
 <script>
     function showId() {
         console.log(document.getElementById('username').value);
-
     }
-
+    // Showing the delete form and storing the product id(pid) into form to pass into php
     function showDeleteForm(pid) {
         document.getElementById('delete-container').style.display = "block";
         document.getElementById('pid').value = pid;
     }
-
+    // Showing the update form and storing the product id (pid) into form to pass into php
     function displayUpdateForm(pid) {
         document.getElementById('update-container').style.display = "block"
         document.getElementById('pid1').value = pid
