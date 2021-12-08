@@ -135,6 +135,7 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
             </div>
             <div class="modal-body">
                 <form action="./update.php" method="post" enctype="multipart/form-data">
+                <input type='text' name='P_id' id='pid1' class='username' value="">
                     <div class="form-group">
                         <input type="text" class="form-control" name="name" style="width:100%" placeholder="Enter new product name!" >
                     </div>
@@ -142,10 +143,10 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
                         <input type="text" class="form-control" name="quantity" style="width:100%" placeholder="Enter new product Quantity!" >
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="costperitem" style="width:100%" placeholder="Enter new cost per item!" >
+                        <input type="text" class="form-control" name="cost" style="width:100%" placeholder="Enter new cost per item!" >
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="sellingprice" style="width:100%" placeholder="Enter new selling price!">
+                        <input type="text" class="form-control" name="price" style="width:100%" placeholder="Enter new selling price!">
                     </div>
                     <div class="form-group">
                         <input type="file" name="uploadfile" value="" />
@@ -227,7 +228,7 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
 
     function displayUpdateForm(pid) {
         document.getElementById('update-container').style.display = "block"
-        document.getElementById('uid1').value = pid
+        document.getElementById('pid1').value = pid
     }
 </script>
 

@@ -301,7 +301,6 @@ function updateProduct($conn, $p_id,$u_id, $name, $quantity, $costperitem ,$sell
         $filename=$row["P_filename"];  
     }
     debug_to_console($filename);
-    exit();
 
     $sql="UPDATE inventory SET P_name=? , p_quantity=?, p_costperitem=?, p_sellingprice=?, P_filename=? where U_id=? and P_id=?";
     $stmt=mysqli_stmt_init($conn);

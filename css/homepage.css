@@ -76,12 +76,11 @@
 
 .main-container {
     margin: 7% 2% 0 3%;
-    min-height: 120vh;
     position: relative;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 60%;
-    grid-auto-rows: 60%;
+    grid-template-rows: minmax(27rem, auto);
+    grid-auto-rows: 27rem;
     grid-auto-columns: minmax(60%, auto);
 }
 
