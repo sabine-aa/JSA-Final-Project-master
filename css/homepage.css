@@ -68,7 +68,7 @@
     grid-template-rows: minmax(27rem, auto);
     grid-auto-rows: 27rem;
     grid-auto-columns: minmax(60%, auto);
-    justify-content: ;
+
 }
 
 .p-name {
