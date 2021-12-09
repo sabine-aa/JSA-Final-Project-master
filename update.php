@@ -1,4 +1,7 @@
 <?php
+
+if(isset($_POST["submit"])){
+
 $pid = $_POST["P_id"];
 $name = $_POST["name"];
 $price = $_POST["price"];
@@ -19,4 +22,9 @@ if (move_uploaded_file($tempname, $folder))  {
     $msg = "Image uploaded successfully";
 }else{
     $msg = "Failed to upload image";
+}
+}else if(isset($_POST["cancel"])){
+
+    header("location: ./homepage.php");
+
 }

@@ -46,6 +46,10 @@
     grid-template-rows: minmax(27rem, auto);
     grid-auto-rows: 27rem;
     grid-auto-columns: minmax(60%, auto);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0232e8b6171a861cdb99b8f2a5fc75cb3c719686
 }
 
 .p-name {

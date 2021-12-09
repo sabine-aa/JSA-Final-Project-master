@@ -110,6 +110,9 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
                     <div class="form-group">
                         <button type="submit" name="submit" class="btn btn-default">Add</button>
                     </div>
+                    <div class="form-group">
+                        <button type="cancel" name="cancel" class="btn btn-default" formnovalidate>Cancel</button>
+                    </div>
 
 
                 </form>
@@ -159,6 +162,10 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
                     </div>
                     <div class="form-group">
                         <button type="submit" name="submit" class="btn btn-default">Update</button>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="cancel" name="cancel" class="btn btn-default" >Cancel</button>
                     </div>
 
 
@@ -224,6 +231,7 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
     function displayUpdateForm(pid) {
         document.getElementById('update-container').style.display = "block"
         document.getElementById('pid1').value = pid
+
     }
 </script>
 
