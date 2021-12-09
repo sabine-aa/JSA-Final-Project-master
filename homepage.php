@@ -8,10 +8,9 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
 ?>
 
 <link rel="stylesheet" href="./css/homepage.css">
-<!--CSS-->
 <link rel="stylesheet" href="./css/bootstrap.css">
 
-<!--JS-->
+
 <main class='main-container'>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -35,6 +34,8 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
 
     if (mysqli_num_rows($resultData) > 0) {
         while ($row = $resultData->fetch_assoc()) {
+
+            // echoing a product item to display
             echo "
         <div class='product-item'> 
             <div class='image-box'>  
@@ -176,10 +177,9 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
     });
 </script>
 
-<form action="delete.php" id="delete-container" method="post">
+<form action="delete.php" id="delete-container" class="modal" method="post">
 
     <h1>Are You Sure You Want To Delete?</h1>
-    
     <input type='text' name='P_id' id='pid' class='username' value="">
     <button name="yes">
         Yes

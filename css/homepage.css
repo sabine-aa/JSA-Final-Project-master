@@ -16,16 +16,24 @@
 
 #delete-container {
     display: none;
-    position: fixed;
+    position: fixed relative;
     z-index: 1;
-    left: 20%;
-    top: 20%;
-    width: 20%;
-    height: fit-content;
-    overflow: auto;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
-    padding-top: 60px;
+    left: 30%;
+    top: 30%;
+    width: fit-content;
+    min-height: fit-content;
+    color: #000;
+    background-color: #fff;
+}
+
+#delete-container>h1 {
+    font-size: 1.4rem;
+}
+
+#delete-container>button {
+    left: 30%;
+    top: 30%;
+    bottom: 0.4rem;
 }
 
 .username {
@@ -60,6 +68,7 @@
     grid-template-rows: minmax(27rem, auto);
     grid-auto-rows: 27rem;
     grid-auto-columns: minmax(60%, auto);
+    justify-content: ;
 }
 
 .p-name {
