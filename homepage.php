@@ -48,11 +48,11 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
                                 <img src='./resources/images/edit.png' onclick='displayUpdateForm()' alt=''>
                             </div>
                             <div class='edit-delete'>
-                                <img src='./resources/images/delete.png' alt='' onclick='showDeleteForm()'>
+                                <img src='./resources/images/delete.png' alt='' onclick='showDeleteForm({$row['P_id']})'>
                             </div>        
                      </div>
                                 <div class='product-desc'  >
-                                <input type='text' name='P_id' id='username1' class='username' value=' {$row['P_id']}'>
+                                
                                 <h1 class='p-name' > {$row['P_name']}  </h1>
                                 <h3 class='desc'>Quantity: {$row['p_quantity']}</h3>
                                 <h3 class='desc'>Price:{$row['p_sellingprice']}</h3>
@@ -71,7 +71,7 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
 
     </div>
 </main>
-
+<!-- <input type='text' name='P_id' id='username1' class='username' value=' {$row['P_id']}'> -->
 
 <form action="" id="edit-product">
     <input type="text" name="quantity" placeholder="Quantity" class="edit-input">
@@ -125,10 +125,11 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
 <form action="delete.php" id="delete-container" method="post">
 
     <h1>Are You Sure You Want To Delete?</h1>
-    <input type="text" class="username" name="P_id" id="uid" value="">
-    <script>
+    
+    <input type='text' name='P_id' id='pid' class='username' value="">
+    <!-- <script>
         document.getElementById('uid').value = document.getElementById('username1').value;
-    </script>
+    </script> -->
     <button name="yes">
         Yes
     </button>
@@ -166,11 +167,11 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
     function showId() {
         console.log(document.getElementById('username').value);
 
-
     }
 
-    function showDeleteForm() {
+    function showDeleteForm(pid) {
         document.getElementById('delete-container').style.display = "block";
+        document.getElementById('pid').value = pid;
     }
 
     function displayUpdateForm() {
