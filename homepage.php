@@ -144,6 +144,7 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
     <input type="text" class="username" name="P_id" id="uid1" value="">
     <script>
         document.getElementById('uid1').value = document.getElementById('username1').value;
+        //console.log(document.getElementById('username1').value);
     </script>
     <input type="text" name="name" placeholder="Enter new name">
     <input type="text" name="cost" placeholder="Enter new cost">
