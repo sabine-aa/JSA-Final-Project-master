@@ -177,21 +177,40 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
     });
 </script>
 
-<form action="delete.php" id="delete-container" class="modal" method="post">
+<!-- Delete form  -->
+<div style="position:fixed; top:50%; left:50%; transform: translate(-50%, -50%);   width: 20%;" class="fade" role="dialog" id="delete-container">
+    <div class="modal-dialog modal-md">
 
-    <h1>Are You Sure You Want To Delete?</h1>
-    <input type='text' name='P_id' id='pid' class='username' value="">
-    <button name="yes">
-        Yes
-    </button>
-    <button name="no">
-        no
-    </button>
+        <div class="modal-content">
+            <div class="modal-header">
 
-</form>
+                <h4 class="modal-title" style="color:#000000">
+                    Delete Confirmation
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form action="./delete.php" method="post" enctype="multipart/form-data">
+                <input type='text' name='P_id' id='pid1' class='username' value="">
+                    <div class="form-group" id="delete-buttons">
+                        <button type="submit" name="yes" id="delete-yes" class="btn btn-default">Yes</button>
+                        <button type="cancel" name="no" id="delete-no" class="btn btn-default">No</button>
+                    </div>
 
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
+<!-- delete container showing function -->
 
+<script>
+    $(function() {
+        $(".delete-button").click(function() {
+            $("#delete-container").modal('show');
+        });
+    });
+</script>
 <!-- Update and Delete Form Showing functions -->
 <script>
     function showId() {
@@ -199,7 +218,6 @@ echo ("<script>console.log('PHP: " . $username . "');</script>");
     }
     // Showing the delete form and storing the product id(pid) into form to pass into php
     function showDeleteForm(pid) {
-        document.getElementById('delete-container').style.display = "block";
         document.getElementById('pid').value = pid;
     }
     // Showing the update form and storing the product id (pid) into form to pass into php

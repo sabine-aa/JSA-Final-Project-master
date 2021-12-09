@@ -14,28 +14,6 @@
     right: 4%;
 }
 
-#delete-container {
-    display: none;
-    position: fixed relative;
-    z-index: 1;
-    left: 30%;
-    top: 30%;
-    width: fit-content;
-    min-height: fit-content;
-    color: #000;
-    background-color: #fff;
-}
-
-#delete-container>h1 {
-    font-size: 1.4rem;
-}
-
-#delete-container>button {
-    left: 30%;
-    top: 30%;
-    bottom: 0.4rem;
-}
-
 .username {
     display: none;
     position: absolute;
@@ -68,7 +46,6 @@
     grid-template-rows: minmax(27rem, auto);
     grid-auto-rows: 27rem;
     grid-auto-columns: minmax(60%, auto);
-    justify-content: ;
 }
 
 .p-name {

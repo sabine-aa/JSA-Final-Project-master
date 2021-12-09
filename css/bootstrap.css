@@ -230,6 +230,24 @@ th {
     padding: 0
 }
 
+#delete-yes {
+    margin-right: 3rem;
+    margin-left: 2rem;
+}
+
+#delete-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    overflow: hidden;
+    outline: 0;
+    border-radius: 2%;
+}
+
 
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
 
