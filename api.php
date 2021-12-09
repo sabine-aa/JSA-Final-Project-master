@@ -23,6 +23,47 @@ function pwdMatch($pwd, $pwdRepeat)
     return false;
 }
 
+//getCost
+
+//getGains
+
+function  gains($conn, $userid)
+{
+    $sql = " SELECT SUM(O_totalprice) FROM customer_order WHERE U_id= $userid ;";
+    $result = mysqli_query($conn,$sql);
+
+    return $result ;
+}
+
+
+function getGain($conn, $userid)
+{
+
+    $sql="SELECT sum(O_totalprice) as total FROM customer_order where U_id = $userid";
+
+    $result = mysqli_query($conn, $sql);
+    while ($row = mysqli_fetch_assoc($result))
+    { 
+       return $row['total'];
+    }
+    
+}
+
+function getCost($conn, $userid)
+{
+
+    $sql="SELECT sum(p_costperitem) as total FROM inventory where U_id = $userid";
+
+    $result = mysqli_query($conn, $sql);
+    while ($row = mysqli_fetch_assoc($result))
+    { 
+       return $row['total'];
+    }
+    
+}
+
+
+
 
 function createProduct($conn, $name, $quantity, $costperitem, $sellingprice, $filename,$userid)
 {
